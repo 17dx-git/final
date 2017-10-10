@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <cstdio>
 #include <cstdlib>
+#include <signal.h>
 
 bool getSettings(int argc, char ** argv, 
                  int& port_listen,
@@ -50,6 +51,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "error change dir\n"); 
         return 1; 
     }
+    
+    sigaction( SIGHUP, SIG_IGN, NULL);
     
     daemonize();
     
