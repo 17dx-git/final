@@ -20,6 +20,6 @@ enable_language(CXX)
 #SET(CMAKE_EXE_LINKER_FLAGS "-lWs2_32")
 ADD_EXECUTABLE(${PROJECT_NAME} ${SOURCE_EXE} )
 target_link_libraries(${PROJECT_NAME} ${LIBS})
-add_custom_command(TARGET ${PROJECT_NAME} 
-                   POST_BUILD
-                   COMMAND ./final -h 127.0.0.1 -p 1080 -d .)
+#add_custom_command(TARGET ${PROJECT_NAME} 
+#                   POST_BUILD
+#                   COMMAND ./final -h 127.0.0.1 -p 1080 -d .)

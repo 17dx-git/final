@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         return 1; 
     }
     
-//    daemonize();
+    daemonize();
     
     Server server (port_listen, ip_listen ) ;
     server.start();
