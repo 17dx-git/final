@@ -128,7 +128,7 @@ int processing_request( int socket_c,
 
 
 void * fWorker(void * arg){
-    int socket_c = reinterpret_cast<int> (arg);
+    int socket_c = reinterpret_cast<long> (arg);
     set_nonblocking(socket_c);
     
     int efd = epoll_settings(socket_c);
