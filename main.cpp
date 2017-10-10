@@ -52,7 +52,12 @@ int main(int argc, char **argv)
         return 1; 
     }
     
-    sigaction( SIGHUP, SIG_IGN, NULL);
+    struct sigaction sa;
+
+    sigemptyset(&sa.sa_mask);
+    sa.sa_handler = SIG_IGN;
+    sa.sa_flags = 0;
+    sigaction(SIGHUP, &sa, NULL);
     
     daemonize();
     
