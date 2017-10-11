@@ -1,7 +1,8 @@
 #include <string>
 
 
-const int STATE_BAD_REQUEST = -2;
+const int STATE_BAD_REQUEST = -3;
+const int STATE_ERROR_WRITE = -2;
 const int STATE_ERROR_READ = -1;
 const int STATE_READY_QUERY = 0;
 const int STATE_WAIT_DATA = 1;

@@ -114,9 +114,22 @@ int processing_request( int socket_c,
                 CreateResponse(query, response);
             }
             
-            /*result =*/ send(socket_c, 
-                          response.str().c_str(),
-                          response.str().length(), 0);
+            const char * buf = response.str().c_str();
+            size_t buf_len = response.str().length();
+            while( buf_len != 0){
+                count = send(socket_c, 
+                              response.str().c_str(),
+                              response.str().length(), 0);
+                if (count == -1 ){
+                     if (errno == EAGAIN) continue;
+                     perror ("write");
+                     return STATE_ERROR_WRITE;
+                }
+                buf = &buf[count];
+                buf_len -= count;                
+            }
+
+            
             
             state = getOneQuery(partial, query);
         }
@@ -140,6 +153,7 @@ void * fWorker(void * arg){
     for (;;) {
         state = processing_request(socket_c, partial);
         if ( state == STATE_ERROR_READ ) break;
+        if ( state == STATE_ERROR_WRITE ) break;
            
         int n = epoll_wait (efd, &event, maxevents, -1);
         if (n == -1) {
