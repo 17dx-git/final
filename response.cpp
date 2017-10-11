@@ -240,7 +240,10 @@ void CreateResponse(const std::string& query, std::stringstream& response){
     }
     
         
-    std::ifstream is; 
+    std::ifstream is;
+    
+    if (file == "") file = "index.html";
+    
     is.open (file.c_str(), std::ios::binary );
     if ( is.is_open() ){ 
         CreateResponse200(is, response) ;
