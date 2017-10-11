@@ -128,7 +128,7 @@ int processing_request( int socket_c,
                 buf = &buf[count];
                 buf_len -= count;                
             }
-
+            return STATE_CLOSE_SOCKET;
             
             
             state = getOneQuery(partial, query);
@@ -154,6 +154,7 @@ void * fWorker(void * arg){
         state = processing_request(socket_c, partial);
         if ( state == STATE_ERROR_READ ) break;
         if ( state == STATE_ERROR_WRITE ) break;
+        if ( state == STATE_CLOSE_SOCKET ) break;
            
         int n = epoll_wait (efd, &event, maxevents, -1);
         if (n == -1) {
